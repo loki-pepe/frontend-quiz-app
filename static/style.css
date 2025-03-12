@@ -1,0 +1,76 @@
+@font-face {
+    font-family: "Rubik";
+    src: url("../assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("../assets/fonts/Rubik-Italic-VariableFont_wght.ttf") format("truetype");
+    font-style: italic;
+}
+
+:root {
+    /* Colours */
+    --purple: hsl(277 91% 56%);
+    --green: hsl(151 70% 50%);
+    --red: hsl(0 82% 63%);
+
+    --dark-navy: hsl(216 25% 25%);
+    --navy: hsl(215 27% 32%);
+    --light-navy: hsl(219 13% 44%);
+    --light-bluish: hsl(216 47% 78%);
+    --light-grey: hsl(220 38% 97%);
+    --white: hsl(0 0% 100%);
+
+
+    /* Font sizes */
+    --display: clamp(5.5rem, 2.1603rem + 14.2494vw, 9rem);
+
+    --heading-l: clamp(2.5rem, 1.0687rem + 6.1069vw, 4rem);
+    --heading-m: clamp(1.25rem, 0.2958rem + 4.0712vw, 2.25rem);
+    --heading-s: clamp(1.125rem, 0.5286rem + 2.5445vw, 1.75rem);
+
+    --body-m: clamp(1.125rem, 0.7672rem + 1.5267vw, 1.5rem);
+    --body-s: clamp(0.875rem, 0.5172rem + 1.5267vw, 1.25rem);
+
+
+    /* Font weights */
+    --medium: 500;
+    --regular: 400;
+
+
+    /* Line heights */
+    --heading-line-height: 100%;
+    --body-line-height: 150%;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+button {
+    display: block;
+    font-size: inherit;
+    font-family: inherit;
+}
+  
+img {
+    display: block;
+    max-width: 100%;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}

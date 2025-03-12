@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./static/style.css">
+
+  <script src="./static/script.js"></script>
+  
+  <title>Frontend Mentor | Frontend quiz app</title>
+</head>
+<body>
+  <header>
+    <h2 class="quiz-name"></h2>
+    <input type="checkbox" id="theme-switch">
+  </header>
+
+  <main id="home">
+    <hgroup>
+      <p>Welcome to the</p>
+      <h1>Frontend Quiz</h1>
+    </hgroup>
+    <p>Pick a subject to get started.</p>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>Accessibility</li>
+    </ul>
+  </main>
+
+  <main id="quiz" hidden>
+    <div id="question-container">
+      <p>Question <span id="question-number"></span> of <span id="total-questions"></span></p>
+      <p id="question"></p>
+      <div id="progress-bar"></div>
+    </div>
+    <div id="answer-container">
+      <ul id="answers">
+
+      </ul>
+      <button id="submit">Submit answer</button>
+    </div>
+  </main>
+  
+  <main id="completed" hidden>
+    <hgroup>
+      <p>Quiz completed</p>
+      <h3>You scored</h3>
+    </hgroup>
+    <div id="completion-display-container">
+      <div id="completion-display">
+        <h4 class="quiz-name"></h4>
+        <div id="score"></div>
+        <p>out of <span id="total-questions"></span></p>
+      </div>
+      <button>Play again</button>
+    </div>
+  </main>
+
+</body>
+</html>
