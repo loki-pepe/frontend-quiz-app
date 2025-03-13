@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUBJECTS = document.querySelector('#subjects');
 
     fetch('data.json').then(response => {
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
         return response.json();
     }).then(data => {
         for (let quiz of data.quizzes) {
@@ -19,5 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subjectContainer.appendChild(subject);
             SUBJECTS.appendChild(subjectContainer);
         }
+    }).catch(error => {
+        console.error(error);
     });
 });
