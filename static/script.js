@@ -11,28 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const SUBJECTS = document.querySelector('#subjects');
     const SUBMIT_ANSWER_BUTTON = document.querySelector('#answer-button');
     const TOTAL_QUESTIONS_ELEMENTS = document.querySelectorAll('.total-questions');
+    const UNANSWERED_ERROR = document.querySelector('#unanswered-error');
 
     initialize();
 
 
-    function handleAnswerSubmit(correctAnswer, score) {
-        SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
-        NEXT_QUESTION_BUTTON.removeAttribute('hidden');
-        ANSWERS_LIST.classList.add('answered');
-
+    function handleAnswerSubmit(correctAnswer, currentQuestion, score) {
         const SELECTED_ANSWER = document.querySelector('.selected');
-        if (SELECTED_ANSWER.textContent === correctAnswer) {
-            score++;
-            SELECTED_ANSWER.classList.add('correct');
+        
+        if (!SELECTED_ANSWER) {
+            toggleUnansweredError(true);
         } else {
-            SELECTED_ANSWER.classList.add('incorrect');
-            Array.from(ANSWERS_LIST.querySelectorAll('.answer')).filter(
-                answer => answer.textContent === correctAnswer
-            )[0].classList.add('correct');
-
+            currentQuestion++
+            SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
+            NEXT_QUESTION_BUTTON.removeAttribute('hidden');
+            ANSWERS_LIST.classList.add('answered');
+    
+            if (SELECTED_ANSWER.textContent === correctAnswer) {
+                score++;
+                SELECTED_ANSWER.classList.add('correct');
+            } else {
+                SELECTED_ANSWER.classList.add('incorrect');
+                Array.from(ANSWERS_LIST.querySelectorAll('.answer')).filter(
+                    answer => answer.textContent === correctAnswer
+                )[0].classList.add('correct');
+            }
         }
 
-        return score;
+        return {currentQuestion, score};
     }
 
     function initialize() {
@@ -62,8 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         populateQuestionPage(QUESTIONS[currentQuestion]);
         SUBMIT_ANSWER_BUTTON.addEventListener('click', () => {
-            score = handleAnswerSubmit(QUESTIONS[currentQuestion].answer, score);
-            currentQuestion++;
+            let newQuizState = handleAnswerSubmit(QUESTIONS[currentQuestion].answer, currentQuestion, score);
+            currentQuestion = newQuizState.currentQuestion;
+            score = newQuizState.score;
         });
         NEXT_QUESTION_BUTTON.addEventListener('click', () => {
             NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
@@ -130,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectAnswer(answer) {
+        toggleUnansweredError(false);
         if (!ANSWERS_LIST.classList.contains('answered')) {
             let previousSelectedAnswer = ANSWERS_LIST.querySelector('.selected');
             if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected')
@@ -141,5 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let page of PAGES) {
             page.id === pageId ? page.removeAttribute('hidden') : page.setAttribute('hidden', '');
         }
+    }
+
+    function toggleUnansweredError(toggle) {
+        toggle ? UNANSWERED_ERROR.removeAttribute('hidden') : UNANSWERED_ERROR.setAttribute('hidden', '');
     }
 });
