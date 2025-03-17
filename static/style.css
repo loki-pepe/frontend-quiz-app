@@ -63,6 +63,10 @@ button {
     font-size: inherit;
     font-family: inherit;
 }
+
+[hidden] {
+    display: none;
+}
   
 img {
     display: block;
