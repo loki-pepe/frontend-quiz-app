@@ -78,3 +78,18 @@ input {
     font-size: inherit;
     color: inherit;
 }
+
+/* Temp */
+.selected {
+    border-color: var(--purple);
+}
+.correct {
+    background-color: lightgreen;
+}
+.correct.selected {
+    border-color: var(--green);
+}
+.incorrect {
+    border-color: var(--red);
+    background-color: lightcoral;
+}
