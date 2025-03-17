@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleAnswerSubmit(correctAnswer, score) {
         SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
         NEXT_QUESTION_BUTTON.removeAttribute('hidden');
+        ANSWERS_CONTAINER.classList.add('answered');
 
         const SELECTED_ANSWER = document.querySelector('.selected');
         if (SELECTED_ANSWER.textContent === correctAnswer) {
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateAnswers(options) {
         ANSWERS_CONTAINER.replaceChildren();
+        ANSWERS_CONTAINER.classList.remove('answered');
 
         for (let option of options) {
             let answerContainer = document.createElement('li');
@@ -128,9 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectAnswer(answer) {
-        let previousSelectedAnswer = ANSWERS_CONTAINER.querySelector('.selected');
-        if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected')
-        answer.classList.add('selected');
+        if (!ANSWERS_CONTAINER.classList.contains('answered')) {
+            let previousSelectedAnswer = ANSWERS_CONTAINER.querySelector('.selected');
+            if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected')
+            answer.classList.add('selected');
+        }
     }
 
     function togglePage(pageId) {
