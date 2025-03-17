@@ -92,15 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             answer.textContent = option;
             answer.classList.add('answer');
+            answer.addEventListener('click', () => selectAnswer(answer));
 
             answerContainer.appendChild(answer);
             ANSWERS_CONTAINER.appendChild(answerContainer);
         }
-
-        let answers = ANSWERS_CONTAINER.querySelectorAll('.answer');
-        answers.forEach(answer => {
-            answer.addEventListener('click', () => selectAnswer(answer, answers));
-        })
     }
 
     function populateHomePage(quizList) {
@@ -131,10 +127,10 @@ document.addEventListener('DOMContentLoaded', () => {
         populateAnswers(questionObject.options);
     }
 
-    function selectAnswer(answer, answers) {
-        for (let ans of answers) {
-            ans === answer ? ans.classList.add('selected') : ans.classList.remove('selected');
-        }
+    function selectAnswer(answer) {
+        let previousSelectedAnswer = ANSWERS_CONTAINER.querySelector('.selected');
+        if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected')
+        answer.classList.add('selected');
     }
 
     function togglePage(pageId) {
