@@ -22,9 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!SELECTED_ANSWER) {
             toggleUnansweredError(true);
         } else {
-            currentQuestion++
-            SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
-            NEXT_QUESTION_BUTTON.removeAttribute('hidden');
+            currentQuestion++;
+            toggleSubmitButton('next-button');
             ANSWERS_LIST.classList.add('answered');
     
             if (SELECTED_ANSWER.textContent === correctAnswer) {
@@ -73,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             score = newQuizState.score;
         });
         NEXT_QUESTION_BUTTON.addEventListener('click', () => {
-            NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
-            SUBMIT_ANSWER_BUTTON.removeAttribute('hidden');
+            toggleSubmitButton('answer-button');
 
             if (currentQuestion === possibleScore) {
                 togglePage('completed');
@@ -85,9 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 QUESTION_NUMBER.textContent = currentQuestion + 1;
             }
         })
-        PLAY_AGAIN_BUTTON.addEventListener('click', () => {
-            window.location.reload();
-        });
+        PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload);
     }
 
 
@@ -148,6 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function togglePage(pageId) {
         for (let page of PAGES) {
             page.id === pageId ? page.removeAttribute('hidden') : page.setAttribute('hidden', '');
+        }
+    }
+
+    function toggleSubmitButton(buttonId) {
+        if (buttonId === 'next-button') {
+            SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
+            NEXT_QUESTION_BUTTON.removeAttribute('hidden');
+        } else {
+            NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
+            SUBMIT_ANSWER_BUTTON.removeAttribute('hidden');
         }
     }
 
