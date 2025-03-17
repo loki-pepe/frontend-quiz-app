@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const ANSWERS_CONTAINER = document.querySelector('#answers');
+    const ANSWERS_LIST = document.querySelector('#answers');
     const NEXT_QUESTION_BUTTON = document.querySelector('#next-button');
     const PAGES = document.querySelectorAll('main');
     const PLAY_AGAIN_BUTTON = document.querySelector('#again-button');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleAnswerSubmit(correctAnswer, score) {
         SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
         NEXT_QUESTION_BUTTON.removeAttribute('hidden');
-        ANSWERS_CONTAINER.classList.add('answered');
+        ANSWERS_LIST.classList.add('answered');
 
         const SELECTED_ANSWER = document.querySelector('.selected');
         if (SELECTED_ANSWER.textContent === correctAnswer) {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             SELECTED_ANSWER.classList.add('correct');
         } else {
             SELECTED_ANSWER.classList.add('incorrect');
-            Array.from(ANSWERS_CONTAINER.querySelectorAll('.answer')).filter(
+            Array.from(ANSWERS_LIST.querySelectorAll('.answer')).filter(
                 answer => answer.textContent === correctAnswer
             )[0].classList.add('correct');
 
@@ -85,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function populateAnswers(options) {
-        ANSWERS_CONTAINER.replaceChildren();
-        ANSWERS_CONTAINER.classList.remove('answered');
+        ANSWERS_LIST.replaceChildren();
+        ANSWERS_LIST.classList.remove('answered');
 
         for (let option of options) {
             let answerContainer = document.createElement('li');
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             answer.addEventListener('click', () => selectAnswer(answer));
 
             answerContainer.appendChild(answer);
-            ANSWERS_CONTAINER.appendChild(answerContainer);
+            ANSWERS_LIST.appendChild(answerContainer);
         }
     }
 
@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function selectAnswer(answer) {
-        if (!ANSWERS_CONTAINER.classList.contains('answered')) {
-            let previousSelectedAnswer = ANSWERS_CONTAINER.querySelector('.selected');
+        if (!ANSWERS_LIST.classList.contains('answered')) {
+            let previousSelectedAnswer = ANSWERS_LIST.querySelector('.selected');
             if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected')
             answer.classList.add('selected');
         }
