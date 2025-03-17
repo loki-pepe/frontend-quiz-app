@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         SUBMIT_ANSWER_BUTTON.addEventListener('click', () => {
             score = handleAnswerSubmit(QUESTIONS[currentQuestion].answer, score);
             currentQuestion++;
-            console.log(score, 'out of', currentQuestion);
         });
         NEXT_QUESTION_BUTTON.addEventListener('click', () => {
             NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
