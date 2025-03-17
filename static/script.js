@@ -20,7 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
         NEXT_QUESTION_BUTTON.removeAttribute('hidden');
 
         const SELECTED_ANSWER = document.querySelector('.selected');
-        if (SELECTED_ANSWER.textContent === correctAnswer) score++
+        if (SELECTED_ANSWER.textContent === correctAnswer) {
+            score++;
+            SELECTED_ANSWER.classList.add('correct');
+        } else {
+            SELECTED_ANSWER.classList.add('incorrect');
+            Array.from(ANSWERS_CONTAINER.querySelectorAll('.answer')).filter(
+                answer => answer.textContent === correctAnswer
+            )[0].classList.add('correct');
+
+        }
 
         return score;
     }
