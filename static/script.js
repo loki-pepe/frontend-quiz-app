@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 QUESTION_NUMBER.textContent = currentQuestion + 1;
             }
         })
-        PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload);
+        PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload());
     }
 
 
