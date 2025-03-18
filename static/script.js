@@ -70,22 +70,22 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePage('quiz');
 
         const QUESTIONS = quizObject.questions;
-        let currentQuestionNumber = 0;
+        let questionNumber = 0;
         let score = 0
         let possibleScore = QUESTIONS.length;
 
         QUIZ_TITLES.forEach(element => element.textContent = quizObject.title);
         TOTAL_QUESTIONS_ELEMENTS.forEach(element => element.textContent = possibleScore);
-        QUESTION_NUMBER.textContent = currentQuestionNumber + 1;
+        QUESTION_NUMBER.textContent = questionNumber + 1;
 
-        populateQuestionPage(QUESTIONS[currentQuestionNumber]);
+        populateQuestionPage(QUESTIONS[questionNumber]);
         SUBMIT_ANSWER_BUTTON.addEventListener('click', () => {
-            let newQuizState = handleAnswerSubmit(QUESTIONS[currentQuestionNumber].answer, currentQuestionNumber, score);
-            currentQuestionNumber = newQuizState.questionNumber;
+            let newQuizState = handleAnswerSubmit(QUESTIONS[questionNumber].answer, questionNumber, score);
+            questionNumber = newQuizState.questionNumber;
             score = newQuizState.score;
         });
         NEXT_QUESTION_BUTTON.addEventListener('click', () => handleNextQuestion(
-            QUESTIONS[currentQuestionNumber], currentQuestionNumber, score, possibleScore
+            QUESTIONS[questionNumber], questionNumber, score, possibleScore
         ));
         PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload());
     }
