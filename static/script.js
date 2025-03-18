@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCORE_ELEMENT = document.querySelector('#score');
     const SUBJECTS = document.querySelector('#subjects');
     const SUBMIT_ANSWER_BUTTON = document.querySelector('#answer-button');
+    const THEME_SWITCH = document.querySelector('#theme-switch');
     const TOTAL_QUESTIONS_ELEMENTS = document.querySelectorAll('.total-questions');
     const UNANSWERED_ERROR = document.querySelector('#unanswered-error');
 
+    handleThemePreference();
     initialize();
 
 
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return {questionNumber, score};
     }
 
+
     function handleNextQuestion(question, questionNumber, score, possibleScore) {
         toggleSubmitButton('answer-button');
 
@@ -53,6 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+    function handleThemePreference() {
+        let darkColorSchemePreference = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        darkColorSchemePreference.matches ? THEME_SWITCH.checked = true : THEME_SWITCH.checked = false;
+        darkColorSchemePreference.addEventListener('change',  ({matches})  => {
+            if (matches) {
+                THEME_SWITCH.checked = true;
+            } else {
+                THEME_SWITCH.checked = false;
+            }
+        });
+    }
+
+
     function initialize() {
         fetch('data.json').then(response => {
             if (!response.ok) {
@@ -65,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(error);
         });
     }
+
 
     function playQuiz(quizObject) {
         togglePage('quiz');
@@ -108,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     function populateHomePage(quizList) {
         togglePage('start');
         SUBJECTS.replaceChildren();
@@ -131,11 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     function populateQuestionPage(questionObject) {
         QUESTION_ELEMENT.textContent = questionObject.question;
         populateAnswers(questionObject.options);
     }
 
+    
     function selectAnswer(answer) {
         toggleUnansweredError(false);
         if (!ANSWERS_LIST.classList.contains('answered')) {
@@ -145,12 +167,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     function togglePage(pageId) {
         for (let page of PAGES) {
             page.id === pageId ? page.removeAttribute('hidden') : page.setAttribute('hidden', '');
         }
     }
 
+    
     function toggleSubmitButton(buttonId) {
         if (buttonId === 'next-button') {
             SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
@@ -161,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     function toggleUnansweredError(toggle) {
         toggle ? UNANSWERED_ERROR.removeAttribute('hidden') : UNANSWERED_ERROR.setAttribute('hidden', '');
     }
