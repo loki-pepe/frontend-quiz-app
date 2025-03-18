@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initialize();
 
 
-    function handleAnswerSubmit(correctAnswer, currentQuestion, score) {
+    function handleAnswerSubmit(correctAnswer, questionNumber, score) {
         const SELECTED_ANSWER = document.querySelector('.selected');
         
         if (!SELECTED_ANSWER) {
             toggleUnansweredError(true);
         } else {
-            currentQuestion++;
+            questionNumber++;
             toggleSubmitButton('next-button');
             ANSWERS_LIST.classList.add('answered');
     
@@ -37,7 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        return {currentQuestion, score};
+        return {questionNumber, score};
+    }
+
+    function handleNextQuestion(question, questionNumber, score, possibleScore) {
+        toggleSubmitButton('answer-button');
+
+        if (questionNumber === possibleScore) {
+            togglePage('completed');
+            SCORE_ELEMENT.textContent = score;
+        } else {
+            if (questionNumber === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
+            populateQuestionPage(question);
+            QUESTION_NUMBER.textContent = questionNumber + 1;
+        }
     }
 
     function initialize() {
@@ -57,32 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePage('quiz');
 
         const QUESTIONS = quizObject.questions;
-        let currentQuestion = 0;
+        let currentQuestionNumber = 0;
         let score = 0
         let possibleScore = QUESTIONS.length;
 
         QUIZ_TITLES.forEach(element => element.textContent = quizObject.title);
         TOTAL_QUESTIONS_ELEMENTS.forEach(element => element.textContent = possibleScore);
-        QUESTION_NUMBER.textContent = currentQuestion + 1;
+        QUESTION_NUMBER.textContent = currentQuestionNumber + 1;
 
-        populateQuestionPage(QUESTIONS[currentQuestion]);
+        populateQuestionPage(QUESTIONS[currentQuestionNumber]);
         SUBMIT_ANSWER_BUTTON.addEventListener('click', () => {
-            let newQuizState = handleAnswerSubmit(QUESTIONS[currentQuestion].answer, currentQuestion, score);
-            currentQuestion = newQuizState.currentQuestion;
+            let newQuizState = handleAnswerSubmit(QUESTIONS[currentQuestionNumber].answer, currentQuestionNumber, score);
+            currentQuestionNumber = newQuizState.questionNumber;
             score = newQuizState.score;
         });
-        NEXT_QUESTION_BUTTON.addEventListener('click', () => {
-            toggleSubmitButton('answer-button');
-
-            if (currentQuestion === possibleScore) {
-                togglePage('completed');
-                SCORE_ELEMENT.textContent = score;
-            } else {
-                if (currentQuestion === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
-                populateQuestionPage(QUESTIONS[currentQuestion]);
-                QUESTION_NUMBER.textContent = currentQuestion + 1;
-            }
-        })
+        NEXT_QUESTION_BUTTON.addEventListener('click', () => handleNextQuestion(
+            QUESTIONS[currentQuestionNumber], currentQuestionNumber, score, possibleScore
+        ));
         PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload());
     }
 
