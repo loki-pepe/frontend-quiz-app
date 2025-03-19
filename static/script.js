@@ -94,7 +94,10 @@ function playQuiz(quizObject) {
     let score = 0
     let possibleScore = QUESTIONS.length;
 
-    QUIZ_TITLES.forEach(element => element.textContent = quizObject.title);
+    QUIZ_TITLES.forEach(element => {
+        element.textContent = quizObject.title;
+        element.classList.add('subject', quizObject.title.toLowerCase());
+    });
     TOTAL_QUESTIONS_ELEMENTS.forEach(element => element.textContent = possibleScore);
     QUESTION_NUMBER.textContent = questionNumber + 1;
 
@@ -137,14 +140,9 @@ function populateHomePage(quizList) {
     for (let quiz of quizList) {
         let subjectContainer = document.createElement('li');
         let subject = document.createElement('button');
-        let subjectImage = document.createElement('img');
 
-        subjectImage.src = quiz.icon;
-        
         subject.textContent = quiz.title;
-        subject.prepend(subjectImage);
-        subject.classList.add('subject');
-        subject.id = quiz.title;
+        subject.classList.add('subject', quiz.title.toLowerCase());
 
         subject.addEventListener('click', () => playQuiz(quiz));
 
