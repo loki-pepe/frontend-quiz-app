@@ -142,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             subject.textContent = quiz.title;
             subject.prepend(subjectImage);
+            subject.classList.add('subject');
             subject.id = quiz.title;
 
             subject.addEventListener('click', () => playQuiz(quiz));
