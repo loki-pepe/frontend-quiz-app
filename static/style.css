@@ -35,14 +35,17 @@
     --bg-color: var(--light-grey);
     --body-color: var(--dark-navy);
     --button-bg-color: var(--white);
+    --correct-color: var(--green);
     --error-color: var(--red);
     --icon-bg-color-accessibility: var(--purplish-white);
     --icon-bg-color-css: var(--greenish-white);
     --icon-bg-color-html: var(--redish-white);
     --icon-bg-color-js: var(--bluish-white);
+    --incorrect-color: var(--red);
     --option-bg-color: var(--light-grey);
     --p-color: var(--grey-navy);
     --score-display-color: var(--white);
+    --selected-color: var(--purple);
     --submit-button-color: var(--white);
     --submit-button-bg-color: var(--purple);
     --submit-button-bg-color-hover:
@@ -121,7 +124,7 @@
 
 body {
     min-height: 100vh;
-    background: var(--bg-color);
+    background: var(--bg-color) /* ...background image */;
     color: var(--body-color);
 }
 
@@ -136,7 +139,7 @@ button {
 
 /* button.answer */
 .answer.selected {
-    border-color: var(--purple);
+    border-color: var(--selected-color);
 }
 .answer.selected::before {
     background-color: var(--answer-selected-decoration-bg-color);
@@ -152,10 +155,16 @@ button {
     background-image: var(--icon-correct);
 }
 .answer.correct.selected {
-    border-color: var(--green);
+    border-color: var(--correct-color);
+}
+.answer.correct.selected::before {
+    background-color: var(--correct-color);
 }
 .answer.incorrect {
-    border-color: var(--red);
+    border-color: var(--incorrect-color);
+}
+.answer.incorrect::before {
+    background-color: var(--incorrect-color);
 }
 .answer.incorrect::after {
     background-image: var(--icon-incorrect);
