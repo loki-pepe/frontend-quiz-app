@@ -14,7 +14,9 @@
 <body>
   <header>
     <h2 class="quiz-name"></h2>
-    <input type="checkbox" id="theme-switch">
+    <div id="theme-switch-container">
+      <input type="checkbox" id="theme-switch">
+    </div>
   </header>
 
   <main id="start">
@@ -37,9 +39,9 @@
       <div id="progress-bar"></div>
     </div>
     <div id="answers-container">
-      <ul id="answers">
+      <ol id="answers">
         <!-- li > button.answer * 4 -->
-      </ul>
+      </ol>
       <button class="submit" id="answer-button">Submit answer</button>
       <button hidden class="submit" id="next-button">Next question</button>
       <p hidden id="unanswered-error">Please select an answer</p>
