@@ -50,6 +50,7 @@
     --submit-button-bg-color: var(--purple);
     --submit-button-bg-color-hover:
         linear-gradient(var(--transparent-white), var(--transparent-white)), var(--submit-button-bg-color);
+    --theme-switch-icon-color: var(--grey-navy);
 
     /* Shadow */
     --shadow: 0 16px 40px 0 var(--shadow-blue);
@@ -83,8 +84,6 @@
     /* Icons */
     --icon-correct: url("../assets/images/icon-correct.svg");
     --icon-incorrect: url("../assets/images/icon-incorrect.svg");
-    --icon-moon: url("../assets/images/icon-moon-dark.svg");
-    --icon-sun: url("../assets/images/icon-sun-dark.svg");
 }
 
 /* Dark mode settings*/
@@ -96,10 +95,7 @@
     --error-color: var(--light-grey);
     --p-color: var(--light-bluish);
     --score-display-color: var(--navy);
-
-    /* Icons */
-    --icon-moon: url("../assets/images/icon-moon-light.svg");
-    --icon-sun: url("../assets/images/icon-sun-light.svg");
+    --theme-switch-icon-color: var(--white);
 }
 
 *, *::before, *::after {
@@ -191,7 +187,7 @@ button.submit:hover {
     display: none;
 }
   
-img {
+img, svg {
     display: block;
     max-width: 100%;
 }
@@ -239,16 +235,12 @@ p#unanswered-error::before {
     background-image: url("../assets/images/icon-js.svg");
     background-color: var(--icon-bg-color-js);
 }
-#theme-switch-container::before, #theme-switch-container::after {
-    display: block;
-    content: "";
+
+#theme-switch-container svg {
     height: var(--theme-switch-icon-size);
     width: var(--theme-switch-icon-size);
-    background: no-repeat center/var(--theme-switch-icon-size);
 }
-#theme-switch-container::before {
-    background-image: var(--icon-sun);
-}
-#theme-switch-container::after {
-    background-image: var(--icon-moon);
+
+#theme-switch-container svg path {
+    fill: var(--theme-switch-icon-color);
 }
