@@ -54,6 +54,8 @@
     --submit-button-bg-color: var(--purple);
     --submit-button-bg-color-hover:
         linear-gradient(var(--transparent-white), var(--transparent-white)), var(--submit-button-bg-color);
+    --theme-switch-color: var(--white);
+    --theme-switch-bg-color: var(--purple);
     --theme-switch-icon-color: var(--grey-navy);
 
     /* Shadow */
@@ -79,10 +81,16 @@
     --heading-line-height: 100%;
     --body-line-height: 150%;
 
+    /* Padding */
+    --theme-switch-padding: 4px;
+
     /* Sizing */
     --answer-feedback-icon-size: clamp(1.5rem, 1.1422rem + 1.5267vw, 1.875rem);
     --icon-size: clamp(1.785625rem, 1.104rem + 2.9084vw, 2.5rem);
     --option-decoration-size: clamp(2.5rem, 1.5458rem + 4.0712vw, 3.5rem);
+    --theme-switch-core-size: clamp(0.75rem, 0.2729rem + 2.0356vw, 1.25rem);;
+    --theme-switch-height: calc(var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
+    --theme-switch-width: calc(2 * var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
     --theme-switch-icon-size: clamp(1rem, 0.5229rem + 2.0356vw, 1.5rem);
 
     /* Icons */
@@ -253,6 +261,31 @@ p#unanswered-error::before {
 .javascript::before {
     background-image: url("../assets/images/icon-js.svg");
     background-color: var(--icon-bg-color-js);
+}
+
+#theme-switch {
+    appearance: none;
+    background-color: var(--theme-switch-bg-color);
+    border-radius: 2rem;
+    height: var(--theme-switch-height);
+    width: var(--theme-switch-width);
+    padding: var(--theme-switch-padding);
+}
+
+#theme-switch::after {
+    display: block;
+    content: "";
+    height: 100%;
+    width: 50%;
+    border-radius: 50%;
+    background-color: var(--theme-switch-color);
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.25s;
+}
+
+#theme-switch:checked::after {
+    transform: translateX(100%);
 }
 
 #theme-switch-container svg {
