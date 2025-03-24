@@ -31,8 +31,10 @@
     --transparent-white: hsl(0 0% 100% / 50%);
 
     /* Colour settings */
-    --answer-marker-color: var(--grey-navy);
-    --answer-marked-marker-color: var(--white);
+    --answer-decoration-color: var(--grey-navy);
+    --answer-hover-decoration-color: var(--purple);
+    --answer-hover-decoration-bg-color: var(--purplish-white);
+    --answer-marked-decoration-color: var(--white);
     --answer-selected-decoration-bg-color: var(--purple);
     --bg-color: var(--light-grey);
     --body-color: var(--dark-navy);
@@ -127,14 +129,14 @@
 .answer::before {
     counter-increment: answer-count 1;
     content: counter(answer-count, upper-latin);
-    color: var(--answer-marker-color);
+    color: var(--answer-decoration-color);
 }
 .answer.selected {
     border-color: var(--selected-color);
 }
 .answer.selected::before {
     background-color: var(--answer-selected-decoration-bg-color);
-    color: var(--answer-marked-marker-color);
+    color: var(--answer-marked-decoration-color);
 }
 .answer.correct::after, .answer.incorrect::after {
     display: block;
@@ -151,17 +153,21 @@
 }
 .answer.correct.selected::before {
     background-color: var(--correct-color);
-    color: var(--answer-marked-marker-color);
+    color: var(--answer-marked-decoration-color);
 }
 .answer.incorrect {
     border-color: var(--incorrect-color);
 }
 .answer.incorrect::before {
     background-color: var(--incorrect-color);
-    color: var(--answer-marked-marker-color);
+    color: var(--answer-marked-decoration-color);
 }
 .answer.incorrect::after {
     background-image: var(--icon-incorrect);
+}
+#answers:not(.answered) .answer:not(.selected):hover::before {
+    color: var(--answer-hover-decoration-color);
+    background-color: var(--answer-hover-decoration-bg-color);
 }
 
 body {
