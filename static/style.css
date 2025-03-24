@@ -31,6 +31,8 @@
     --transparent-white: hsl(0 0% 100% / 50%);
 
     /* Colour settings */
+    --answer-marker-color: var(--grey-navy);
+    --answer-marked-marker-color: var(--white);
     --answer-selected-decoration-bg-color: var(--purple);
     --bg-color: var(--light-grey);
     --body-color: var(--dark-navy);
@@ -118,27 +120,21 @@
     background-color: var(--option-bg-color);
 }
 
-body {
-    min-height: 100vh;
-    background: var(--bg-color) /* ...background image */;
-    color: var(--body-color);
+#answers {
+    counter-reset: answer-count;
 }
 
-button {
-    display: block;
-    font-size: inherit;
-    font-family: inherit;
-    color: inherit;
-    border: solid 3px transparent;
-    box-shadow: var(--shadow);
+.answer::before {
+    counter-increment: answer-count 1;
+    content: counter(answer-count, upper-latin);
+    color: var(--answer-marker-color);
 }
-
-/* button.answer */
 .answer.selected {
     border-color: var(--selected-color);
 }
 .answer.selected::before {
     background-color: var(--answer-selected-decoration-bg-color);
+    color: var(--answer-marked-marker-color);
 }
 .answer.correct::after, .answer.incorrect::after {
     display: block;
@@ -155,15 +151,32 @@ button {
 }
 .answer.correct.selected::before {
     background-color: var(--correct-color);
+    color: var(--answer-marked-marker-color);
 }
 .answer.incorrect {
     border-color: var(--incorrect-color);
 }
 .answer.incorrect::before {
     background-color: var(--incorrect-color);
+    color: var(--answer-marked-marker-color);
 }
 .answer.incorrect::after {
     background-image: var(--icon-incorrect);
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-color) /* ...background image */;
+    color: var(--body-color);
+}
+
+button {
+    display: block;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    border: solid 3px transparent;
+    box-shadow: var(--shadow);
 }
 
 li button {
