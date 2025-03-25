@@ -96,6 +96,11 @@
     /* Icons */
     --icon-correct: url("../assets/images/icon-correct.svg");
     --icon-incorrect: url("../assets/images/icon-incorrect.svg");
+
+    /* Border radius*/
+    --option-border-radius: clamp(12px, 0.5504px + 3.0534vw, 24px);
+    --option-decoration-border-radius: clamp(6px, 0.2752px + 1.5267vw, 12px);
+    --quiz-name-decoration-border-radius: clamp(4px, 0.184px + 1.0178vw, 8px);
 }
 
 /* Dark mode settings*/
@@ -108,6 +113,13 @@
     --p-color: var(--light-bluish);
     --score-display-color: var(--navy);
     --theme-switch-icon-color: var(--white);
+}
+
+@media (min-width: 48rem) {
+    :root {
+        /* Border radius*/
+        --option-decoration-border-radius: clamp(12px, 25.7136px - 1.7857vw, 8px);
+    }
 }
 
 *, *::before, *::after {
@@ -128,6 +140,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--option-bg-color);
+    border-radius: var(--option-decoration-border-radius);
 }
 
 #answers {
@@ -229,6 +242,10 @@ ol, ul {
     list-style: none;
 }
 
+.option, .submit, #completion-display {
+    border-radius: var(--option-border-radius);
+}
+
 p:not(hgroup > p, #question) {
     color: var(--p-color);
 }
@@ -239,6 +256,10 @@ p#unanswered-error {
 
 p#unanswered-error::before {
     content: url("../assets/images/icon-error.svg");
+}
+
+.quiz-name.subject::before {
+    border-radius: var(--quiz-name-decoration-border-radius);
 }
 
 .subject::before {
