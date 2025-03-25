@@ -5,6 +5,7 @@ const PLAY_AGAIN_BUTTON = document.querySelector('#again-button');
 const QUESTION_ELEMENT = document.querySelector('#question');
 const QUESTION_NUMBER = document.querySelector('#question-number');
 const QUIZ_TITLES = document.querySelectorAll('.quiz-name');
+const ROOT = document.querySelector(':root');
 const SCORE_ELEMENT = document.querySelector('#score');
 const SUBJECTS = document.querySelector('#subjects');
 const SUBMIT_ANSWER_BUTTON = document.querySelector('#answer-button');
@@ -106,6 +107,7 @@ function playQuiz(quizObject) {
         let newQuizState = handleAnswerSubmit(QUESTIONS[questionNumber].answer, questionNumber, score);
         questionNumber = newQuizState.questionNumber;
         score = newQuizState.score;
+        updateProgressBar(questionNumber, possibleScore);
     });
     NEXT_QUESTION_BUTTON.addEventListener('click', () => handleNextQuestion(
         QUESTIONS[questionNumber], questionNumber, score, possibleScore
@@ -188,4 +190,10 @@ function toggleSubmitButton(buttonId) {
 
 function toggleUnansweredError(toggle) {
     toggle ? UNANSWERED_ERROR.removeAttribute('hidden') : UNANSWERED_ERROR.setAttribute('hidden', '');
+}
+
+
+function updateProgressBar(current, total) {
+    let progress = current / total;
+    ROOT.style.setProperty('--progress', `${progress * 100}%`)
 }
