@@ -87,8 +87,18 @@
     --question-line-height: 1.2;
 
 
+    /* Gaps */
+    --decoration-gap: clamp(16px, 2.0356vw + 8.3664px, 24px);
+    --theme-switch-gap: clamp(8px, 2.0356vw + .3664px, 16px);
+
+
     /* Padding */
+    --body-padding-top: clamp(16px, 6.1069vw + -6.9008px, 40px);
+    --body-padding-inline: 24px;
     --theme-switch-padding: 4px;
+
+
+    /* Margin */
 
 
     /* Sizing */
@@ -128,6 +138,9 @@
     :root {
         /* Border radius*/
         --option-decoration-border-radius: clamp(8px, -0.9259vw + 19.1104px, 12px);
+
+        /* Padding */
+        --body-padding-top: clamp(40px, 6.3988vw + -9.1429px, 83px);
     }
 }
 
@@ -207,6 +220,8 @@ body {
     font-family: 'Rubik', Tahoma, sans-serif;
     line-height: var(--body-line-height);
     font-weight: var(--regular);
+    padding-block-start: var(--body-padding-top);
+    padding-inline: var(--body-padding-inline);
 }
 
 button {
@@ -253,6 +268,13 @@ h2, h4 {
     font-size: var(--heading-s);
     line-height: var(--heading-line-height);
     font-weight: var(--medium);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: var(--option-decoration-size);
 }
 
 hgroup {
@@ -323,6 +345,12 @@ p#unanswered-error::before {
     line-height: var(--question-line-height);
 }
 
+.quiz-name {
+    display: flex;
+    align-items: center;
+    gap: var(--decoration-gap);
+}
+
 .quiz-name.subject::before {
     border-radius: var(--quiz-name-decoration-border-radius);
 }
@@ -358,7 +386,7 @@ p#unanswered-error::before {
     background-color: var(--theme-switch-bg-color);
     border-radius: 2rem;
     height: var(--theme-switch-height);
-    width: var(--theme-switch-width);
+    min-width: var(--theme-switch-width);
     padding: var(--theme-switch-padding);
 }
 
@@ -374,6 +402,12 @@ p#unanswered-error::before {
 
 #theme-switch:checked::after {
     transform: translateX(100%);
+}
+
+#theme-switch-container {
+    display: flex;
+    align-items: center;
+    gap: var(--theme-switch-gap);
 }
 
 #theme-switch-container svg {
