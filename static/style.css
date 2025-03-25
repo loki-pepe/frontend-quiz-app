@@ -279,8 +279,6 @@ p#unanswered-error::before {
     width: 50%;
     border-radius: 50%;
     background-color: var(--theme-switch-color);
-    position: relative;
-    transform: translateX(0);
     transition: transform 0.25s;
 }
 
