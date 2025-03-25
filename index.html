@@ -28,25 +28,25 @@
   </header>
 
   <main id="start">
-    <div id="heading-container">
+    <div id="heading-container" class="info-container">
       <hgroup>
         <p>Welcome to the</p>
         <h1>Frontend Quiz</h1>
       </hgroup>
       <p class="italic">Pick a subject to get started.</p>
     </div>
-    <ul id="subjects">
+    <ul id="subjects" class="interactive-container">
       <!-- li > button.title * 4 -->
     </ul>
   </main>
 
   <main id="quiz" hidden>
-    <div id="question-container">
+    <div id="question-container" class="info-container">
       <p class="italic">Question <span id="question-number"></span> of <span class="total-questions"></span></p>
       <p id="question"></p>
       <div id="progress-bar"></div>
     </div>
-    <div id="answers-container">
+    <div id="answers-container" class="interactive-container">
       <ol id="answers">
         <!-- li > button.answer * 4 -->
       </ol>
@@ -57,12 +57,12 @@
   </main>
   
   <main id="completed" hidden>
-    <hgroup>
+    <hgroup class="info-container">
       <p>Quiz completed</p>
       <h3>You scored</h3>
     </hgroup>
-    <div id="completion-display-container">
-      <div id="completion-display">
+    <div id="result-display-container" class="interactive-container">
+      <div id="result-display">
         <h4 class="quiz-name"></h4>
         <div id="score"></div>
         <p>out of <span class="total-questions"></span></p>
