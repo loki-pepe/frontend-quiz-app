@@ -28,15 +28,18 @@
     --shadow-blue: hsl(220 29% 66% / 14%);
     --light-grey: hsl(220 38% 97%);
     --white: hsl(0 0% 100%);
-    --transparent-white: hsl(0 0% 100% / 50%);
+    --transparent-white-50: hsl(0 0% 100% / 50%);
+    --transparent-white-88: hsl(0 0% 100% / 88%);
 
 
     /* Colour settings */
+    --theme-color: var(--purple);
+
     --answer-decoration-color: var(--grey-navy);
-    --answer-hover-decoration-color: var(--purple);
-    --answer-hover-decoration-bg-color: var(--purplish-white);
+    --answer-hover-decoration-color: var(--theme-color);
+    --answer-hover-decoration-bg-color: var(--filter-light), var(--answer-hover-decoration-color);
     --answer-marked-decoration-color: var(--white);
-    --answer-selected-decoration-bg-color: var(--purple);
+    --answer-selected-decoration-bg-color: var(--theme-color);
     --bg-color: var(--light-grey);
     --body-color: var(--dark-navy);
     --button-bg-color: var(--white);
@@ -49,15 +52,22 @@
     --incorrect-color: var(--red);
     --option-bg-color: var(--light-grey);
     --p-color: var(--grey-navy);
+    --progress-bar-color: var(--theme-color);
+    --progress-bar-bg-color: var(--white);
     --score-display-color: var(--white);
-    --selected-color: var(--purple);
+    --selected-color: var(--theme-color);
     --submit-button-color: var(--white);
-    --submit-button-bg-color: var(--purple);
+    --submit-button-bg-color: var(--theme-color);
     --submit-button-bg-color-hover:
-        linear-gradient(var(--transparent-white), var(--transparent-white)), var(--submit-button-bg-color);
+        var(--filter-medium-light), var(--submit-button-bg-color);
     --theme-switch-color: var(--white);
-    --theme-switch-bg-color: var(--purple);
+    --theme-switch-bg-color: var(--theme-color);
     --theme-switch-icon-color: var(--grey-navy);
+
+
+    /* Color filter */
+    --filter-medium-light: linear-gradient(var(--transparent-white-50), var(--transparent-white-50));
+    --filter-light: linear-gradient(var(--transparent-white-88), var(--transparent-white-88));
 
 
     /* Shadow */
@@ -88,23 +98,45 @@
 
 
     /* Gaps */
-    --decoration-gap: clamp(16px, 2.0356vw + 8.3664px, 24px);
-    --theme-switch-gap: clamp(8px, 2.0356vw + .3664px, 16px);
+    --error-icon-gap: 8px;
+    --main-row-gap: clamp(40px, 6.1069vw + 17.0992px, 64px);
+    --main-column-gap: 32px;
+    --option-decoration-gap: clamp(16px, 4.0712vw + 0.7328px, 32px);
+    --options-gap: clamp(12px, 3.0534vw + .5496px, 24px);
+    --quiz-name-decoration-gap: clamp(16px, 2.0356vw + 8.3664px, 24px);
+    --theme-switch-gap: clamp(8px, 2.0356vw + 0.3664px, 16px);
 
 
     /* Padding */
     --body-padding-top: clamp(16px, 6.1069vw + -6.9008px, 40px);
-    --body-padding-inline: 24px;
+    --body-padding-bottom: 16px;
+    --body-padding-inline: clamp(24px, 10.1781vw + -14.1679px, 64px);
+    --result-display-padding: clamp(32px, 4.0712vw + 16.7328px, 48px);
+    --main-padding-top: clamp(24px, 6.3613vw + 0.145px, 49px);
+    --option-button-padding: clamp(9px, 0.8929vw + 2.1429px, 15px);
+    --progress-bar-padding: 4px;
+    --submit-button-padding: clamp(16px, 3.3079vw + 3.5954px, 29px);
     --theme-switch-padding: 4px;
 
 
     /* Margin */
+    --question-margin-top: clamp(12px, 3.8168vw + -2.313px, 27px);
+    --question-margin-bottom: clamp(24px, 4.0712vw + 8.7328px, 40px);
+    --score-margin-top: clamp(16px, 6.1069vw + -6.9008px, 40px);
+    --score-margin-bottom: 16px;
+    --submit-button-margin-block: clamp(12px, 5.0891vw + -7.084px, 32px);
+    --title-margin-top: 8px;
+    --title-margin-bottom: clamp(16px, 4.7619vw + -20.5714px, 48px);
 
 
     /* Sizing */
     --answer-feedback-icon-size: clamp(1.5rem, 1.1422rem + 1.5267vw, 1.875rem);
+    --error-icon-size: clamp(2rem, 2.0356vw + 1.5229rem, 2.5rem);
     --icon-size: clamp(1.785625rem, 1.104rem + 2.9084vw, 2.5rem);
+    --info-container-flex-basis: 465px;
+    --interactive-container-flex-basis: 564px;
     --option-decoration-size: clamp(2.5rem, 1.5458rem + 4.0712vw, 3.5rem);
+    --progress-bar-height: 1rem;
     --theme-switch-core-size: clamp(0.75rem, 0.2729rem + 2.0356vw, 1.25rem);;
     --theme-switch-height: calc(var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
     --theme-switch-width: calc(2 * var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
@@ -112,6 +144,7 @@
 
 
     /* Icons */
+    --icon-error: url("../assets/images/icon-error.svg");
     --icon-correct: url("../assets/images/icon-correct.svg");
     --icon-incorrect: url("../assets/images/icon-incorrect.svg");
 
@@ -120,6 +153,15 @@
     --option-border-radius: clamp(12px, 0.5504px + 3.0534vw, 24px);
     --option-decoration-border-radius: clamp(6px, 0.2752px + 1.5267vw, 12px);
     --quiz-name-decoration-border-radius: clamp(4px, 0.184px + 1.0178vw, 8px);
+    --round-borders: 10rem;
+
+
+    /* Transition */
+    --transition-time: 0.25s;
+
+
+    /* Progress bar */
+    --progress: 0;
 }
 
 /* Dark mode settings*/
@@ -130,6 +172,7 @@
     --button-bg-color: var(--navy);
     --error-color: var(--light-grey);
     --p-color: var(--light-bluish);
+    --progress-bar-bg-color: var(--navy);
     --score-display-color: var(--navy);
     --theme-switch-icon-color: var(--white);
 }
@@ -139,6 +182,14 @@
         /* Border radius*/
         --option-decoration-border-radius: clamp(8px, -0.9259vw + 19.1104px, 12px);
 
+        /* Padding */
+        --body-padding-inline: clamp(64px, 11.3095vw + -22.8571px, 140px);
+        --main-padding-top: clamp(49px, 5.3571vw + 7.8571px, 85px);
+    }
+}
+
+@media (min-width: 48rem) and (min-height: 60rem) {
+    :root {
         /* Padding */
         --body-padding-top: clamp(40px, 6.3988vw + -9.1429px, 83px);
     }
@@ -157,7 +208,7 @@
     display: block;
     content: "";
     height: var(--option-decoration-size);
-    width: var(--option-decoration-size);
+    min-width: var(--option-decoration-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -208,10 +259,6 @@
 .answer.incorrect::after {
     background-image: var(--icon-incorrect);
 }
-#answers:not(.answered) .answer:not(.selected):hover::before {
-    color: var(--answer-hover-decoration-color);
-    background-color: var(--answer-hover-decoration-bg-color);
-}
 
 body {
     min-height: 100vh;
@@ -220,8 +267,10 @@ body {
     font-family: 'Rubik', Tahoma, sans-serif;
     line-height: var(--body-line-height);
     font-weight: var(--regular);
-    padding-block-start: var(--body-padding-top);
+    padding-block: var(--body-padding-top) var(--body-padding-bottom);
     padding-inline: var(--body-padding-inline);
+    min-width: 320px;
+    transition: background-color var(--transition-time), color var(--transition-time);
 }
 
 button {
@@ -231,6 +280,7 @@ button {
     color: inherit;
     border: solid 3px transparent;
     box-shadow: var(--shadow);
+    width: 100%;
 }
 
 li button {
@@ -240,14 +290,7 @@ li button {
 button.submit {
     color: var(--submit-button-color);
     background: var(--submit-button-bg-color);
-}
-button.submit:hover {
-    background: var(--submit-button-bg-color-hover);
-}
-
-#completion-display {
-    background: var(--score-display-color);
-    box-shadow: var(--shadow);
+    padding: var(--submit-button-padding);
 }
 
 h1::after {
@@ -262,6 +305,7 @@ h1, h3 {
     font-size: inherit;
     line-height: inherit;
     font-weight: var(--medium);
+    margin-block-start: var(--title-margin-top);
 }
 
 h2, h4 {
@@ -283,6 +327,10 @@ hgroup {
     font-weight: var(--light);
 }
 
+hgroup:has(h1) {
+    margin-block-end: var(--title-margin-bottom);
+}
+
 hgroup p {
     font-size: inherit;
     line-height: inherit;
@@ -290,7 +338,7 @@ hgroup p {
 }
 
 [hidden] {
-    display: none;
+    display: none !important;
 }
   
 img, svg {
@@ -304,11 +352,21 @@ input {
     color: inherit;
 }
 
-ol, ul {
-    list-style: none;
+main {
+    margin-block-start: var(--main-padding-top);
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--main-row-gap);
 }
 
-.option, .submit, #completion-display {
+ol, ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--options-gap);
+}
+
+.option, .submit, #result-display {
     border-radius: var(--option-border-radius);
 }
 
@@ -316,6 +374,15 @@ ol, ul {
     font-size: var(--heading-s);
     font-weight: var(--medium);
     line-height: var(--heading-line-height);
+}
+
+.option {
+    padding: var(--option-button-padding);
+    gap: var(--option-decoration-gap);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    justify-items: start;
+    align-items: center;
 }
 
 p {
@@ -333,30 +400,65 @@ p:not(hgroup > p, #question) {
 
 p#unanswered-error {
     color: var(--error-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--error-icon-gap);
 }
 
 p#unanswered-error::before {
-    content: url("../assets/images/icon-error.svg");
+    content: "";
+    height: var(--error-icon-size);
+    width: var(--error-icon-size);
+    background: var(--icon-error) center/contain no-repeat;
+}
+
+#progress-bar {
+    height: var(--progress-bar-height);
+    background-color: var(--progress-bar-bg-color);
+    border-radius: var(--round-borders);
+    padding: var(--progress-bar-padding);
+}
+
+#progress-bar::before {
+    content: "";
+    display: block;
+    background-color: var(--progress-bar-color);
+    border-radius: var(--round-borders);
+    height: 100%;
+    width: var(--progress);
+    transition: width var(--transition-time);
 }
 
 #question {
     font-size: var(--heading-m);
     font-weight: var(--medium);
     line-height: var(--question-line-height);
+    margin-block: var(--question-margin-top) var(--question-margin-bottom);
 }
 
 .quiz-name {
     display: flex;
     align-items: center;
-    gap: var(--decoration-gap);
+    gap: var(--quiz-name-decoration-gap);
 }
 
 .quiz-name.subject::before {
     border-radius: var(--quiz-name-decoration-border-radius);
 }
 
+#result-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--score-display-color);
+    box-shadow: var(--shadow);
+    padding: var(--result-display-padding);
+}
+
 #score {
     font-size: var(--display);
+    margin-block: var(--score-margin-top) var(--score-margin-bottom);
 }
 
 .subject::before {
@@ -381,10 +483,14 @@ p#unanswered-error::before {
     background-color: var(--icon-bg-color-js);
 }
 
+.submit {
+    margin-block: var(--submit-button-margin-block);
+}
+
 #theme-switch {
     appearance: none;
     background-color: var(--theme-switch-bg-color);
-    border-radius: 2rem;
+    border-radius: var(--round-borders);
     height: var(--theme-switch-height);
     min-width: var(--theme-switch-width);
     padding: var(--theme-switch-padding);
@@ -397,7 +503,7 @@ p#unanswered-error::before {
     width: 50%;
     border-radius: 50%;
     background-color: var(--theme-switch-color);
-    transition: transform 0.25s;
+    transition: transform var(--transition-time);
 }
 
 #theme-switch:checked::after {
@@ -417,4 +523,35 @@ p#unanswered-error::before {
 
 #theme-switch-container svg path {
     fill: var(--theme-switch-icon-color);
+}
+
+@media (min-width: 75rem) {
+    main {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: var(--main-column-gap);
+    }
+
+    .info-container {
+        flex: 0 0 var(--info-container-flex-basis);
+    }
+
+    .interactive-container {
+        flex: 0 0 var(--interactive-container-flex-basis);
+    }
+}
+
+@media (hover: hover) {
+    #answers:not(.answered) .answer:not(.selected):hover::before {
+        color: var(--answer-hover-decoration-color);
+        background: var(--answer-hover-decoration-bg-color);
+    }
+    
+    button:hover, label:hover, input:hover {
+        cursor: pointer;
+    }
+    
+    button.submit:hover {
+        background: var(--submit-button-bg-color-hover);
+    }
 }
