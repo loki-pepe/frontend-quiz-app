@@ -149,6 +149,13 @@
     --icon-incorrect: url("../assets/images/icon-incorrect.svg");
 
 
+    /* Background */
+    --background-pattern-mobile: url("../assets/images/pattern-background-mobile-light.svg");
+    --background-pattern-desktop: url("../assets/images/pattern-background-desktop-light.svg");
+
+    --background-pattern: var(--background-pattern-mobile);
+
+
     /* Border radius*/
     --option-border-radius: clamp(12px, 0.5504px + 3.0534vw, 24px);
     --option-decoration-border-radius: clamp(6px, 0.2752px + 1.5267vw, 12px);
@@ -175,6 +182,16 @@
     --progress-bar-bg-color: var(--navy);
     --score-display-color: var(--navy);
     --theme-switch-icon-color: var(--white);
+
+    /* Background */
+    --background-pattern-mobile: url("../assets/images/pattern-background-mobile-dark.svg");
+    --background-pattern-desktop: url("../assets/images/pattern-background-desktop-dark.svg");
+}
+
+@media (min-width: 600px) {
+    :root {
+        --background-pattern: var(--background-pattern-desktop);
+    }
 }
 
 @media (min-width: 48rem) {
@@ -262,7 +279,7 @@
 
 body {
     min-height: 100vh;
-    background: var(--bg-color) /* ...background image */;
+    background: var(--background-pattern) no-repeat top left/cover, var(--bg-color);
     color: var(--body-color);
     font-family: 'Rubik', Tahoma, sans-serif;
     line-height: var(--body-line-height);
@@ -547,7 +564,7 @@ p#unanswered-error::before {
         background: var(--answer-hover-decoration-bg-color);
     }
     
-    button:hover, label:hover, input:hover {
+    button:hover:not(.answered button), label:hover, input:hover {
         cursor: pointer;
     }
     
