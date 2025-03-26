@@ -20,45 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function handleAnswerSubmit(correctAnswer, questionNumber, score) {
-    const SELECTED_ANSWER = document.querySelector('.selected');
-    
-    if (!SELECTED_ANSWER) {
-        toggleUnansweredError(true);
-    } else {
-        questionNumber++;
-        toggleSubmitButton('next-button');
-        ANSWERS_LIST.classList.add('answered');
-
-        if (SELECTED_ANSWER.textContent === correctAnswer) {
-            score++;
-            SELECTED_ANSWER.classList.add('correct');
-        } else {
-            SELECTED_ANSWER.classList.add('incorrect');
-            Array.from(ANSWERS_LIST.querySelectorAll('.answer')).filter(
-                answer => answer.textContent === correctAnswer
-            )[0].classList.add('correct');
-        }
-    }
-
-    return {questionNumber, score};
-}
-
-
-function handleNextQuestion(question, questionNumber, score, possibleScore) {
-    toggleSubmitButton('answer-button');
-
-    if (questionNumber === possibleScore) {
-        togglePage('completed');
-        SCORE_ELEMENT.textContent = score;
-    } else {
-        if (questionNumber === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
-        populateQuestionPage(question);
-        QUESTION_NUMBER.textContent = questionNumber + 1;
-    }
-}
-
-
 function handleThemePreference() {
     let darkColorSchemePreference = window.matchMedia('(prefers-color-scheme: dark)');
     
@@ -86,14 +47,40 @@ function initialize() {
     });
 }
 
+function nextQuestion(question, questionNumber, score, possibleScore) {
+    toggleSubmitButton('answer-button');
+
+    if (questionNumber === possibleScore) {
+        togglePage('completed');
+        SCORE_ELEMENT.textContent = score;
+    } else {
+        if (questionNumber === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
+        populateQuestionPage(question);
+        QUESTION_NUMBER.textContent = questionNumber + 1;
+    }
+}
+
 
 function playQuiz(quizObject) {
+    updateProgressBar(questionNumber, possibleScore);
     togglePage('quiz');
 
     const QUESTIONS = quizObject.questions;
     let questionNumber = 0;
     let score = 0
     let possibleScore = QUESTIONS.length;
+
+    function nextQuestionHandler() {
+        nextQuestion(
+            QUESTIONS[questionNumber], questionNumber, score, possibleScore
+        );
+    }
+    function submitAnswerHandler() {
+        let newQuizState = submitAnswer(QUESTIONS[questionNumber].answer, questionNumber, score);
+        questionNumber = newQuizState.questionNumber;
+        score = newQuizState.score;
+        updateProgressBar(questionNumber, possibleScore);
+    }
 
     QUIZ_TITLES.forEach(element => {
         element.textContent = quizObject.title;
@@ -103,16 +90,13 @@ function playQuiz(quizObject) {
     QUESTION_NUMBER.textContent = questionNumber + 1;
 
     populateQuestionPage(QUESTIONS[questionNumber]);
-    SUBMIT_ANSWER_BUTTON.addEventListener('click', () => {
-        let newQuizState = handleAnswerSubmit(QUESTIONS[questionNumber].answer, questionNumber, score);
-        questionNumber = newQuizState.questionNumber;
-        score = newQuizState.score;
-        updateProgressBar(questionNumber, possibleScore);
+    SUBMIT_ANSWER_BUTTON.addEventListener('click', submitAnswerHandler);
+    NEXT_QUESTION_BUTTON.addEventListener('click', nextQuestionHandler);
+    PLAY_AGAIN_BUTTON.addEventListener('click', () => {
+        SUBMIT_ANSWER_BUTTON.removeEventListener('click', submitAnswerHandler);
+        NEXT_QUESTION_BUTTON.removeEventListener('click', nextQuestionHandler);
+        togglePage('start');
     });
-    NEXT_QUESTION_BUTTON.addEventListener('click', () => handleNextQuestion(
-        QUESTIONS[questionNumber], questionNumber, score, possibleScore
-    ));
-    PLAY_AGAIN_BUTTON.addEventListener('click', () => window.location.reload());
 }
 
 
@@ -167,6 +151,31 @@ function selectAnswer(answer) {
         if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected');
         answer.classList.add('selected');
     }
+}
+
+
+function submitAnswer(correctAnswer, questionNumber, score) {
+    const SELECTED_ANSWER = document.querySelector('.selected');
+    
+    if (!SELECTED_ANSWER) {
+        toggleUnansweredError(true);
+    } else {
+        questionNumber++;
+        toggleSubmitButton('next-button');
+        ANSWERS_LIST.classList.add('answered');
+
+        if (SELECTED_ANSWER.textContent === correctAnswer) {
+            score++;
+            SELECTED_ANSWER.classList.add('correct');
+        } else {
+            SELECTED_ANSWER.classList.add('incorrect');
+            Array.from(ANSWERS_LIST.querySelectorAll('.answer')).filter(
+                answer => answer.textContent === correctAnswer
+            )[0].classList.add('correct');
+        }
+    }
+
+    return {questionNumber, score};
 }
 
 
