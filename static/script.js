@@ -62,7 +62,7 @@ function nextQuestion(question, questionNumber, score, possibleScore) {
 
 
 function playQuiz(quizObject) {
-    updateProgressBar(questionNumber, possibleScore);
+    updateProgressBar(0, 1);
     togglePage('quiz');
 
     const QUESTIONS = quizObject.questions;
