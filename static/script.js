@@ -20,6 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+function celebrate(n=1) {
+    let count = 0;
+    let interval = setInterval(() => {
+        randomConfetti();
+        count++;
+        if (count === n) {
+            clearInterval(interval);
+        }
+    }, 500);
+}
+
+
 function handleThemePreference() {
     let darkColorSchemePreference = window.matchMedia('(prefers-color-scheme: dark)');
     
@@ -53,6 +65,7 @@ function nextQuestion(question, questionNumber, score, possibleScore) {
     if (questionNumber === possibleScore) {
         togglePage('completed');
         SCORE_ELEMENT.textContent = score;
+        if (score === possibleScore) celebrate(6);
     } else {
         if (questionNumber === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
         populateQuestionPage(question);
@@ -144,6 +157,11 @@ function populateQuestionPage(questionObject) {
 }
 
 
+function randomConfetti() {
+    shootConfetti(Math.random() * 100, Math.random() * 100);
+}
+
+
 function selectAnswer(answer) {
     toggleUnansweredError(false);
     if (!ANSWERS_LIST.classList.contains('answered')) {
@@ -151,6 +169,32 @@ function selectAnswer(answer) {
         if (previousSelectedAnswer) previousSelectedAnswer.classList.remove('selected');
         answer.classList.add('selected');
     }
+}
+
+function shootConfetti(x=50, y=50) {
+    const OPTIONS = {
+        angle: 270,
+        count: 50,
+        position: {
+          x: x,
+          y: y,
+        },
+        spread: 360,
+        startVelocity: 30,
+        decay: 0.9,
+        gravity: 1,
+        drift: 0,
+        ticks: 200,
+        colors: ["#fae650", "#e6eff0"],
+        shapes: ["square", "circle"],
+        scalar: 1,
+        zIndex: 100,
+        disableForReducedMotion: true,
+    };
+
+    (async () => {
+        await confetti('tsParticles', OPTIONS);
+    })();
 }
 
 
