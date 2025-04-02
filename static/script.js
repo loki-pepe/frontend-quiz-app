@@ -1,4 +1,5 @@
 const ANSWERS_LIST = document.querySelector('#answers');
+const FINISH_BUTTON = document.querySelector('#finish-button');
 const NEXT_QUESTION_BUTTON = document.querySelector('#next-button');
 const PAGES = document.querySelectorAll('main');
 const PLAY_AGAIN_BUTTON = document.querySelector('#again-button');
@@ -12,6 +13,8 @@ const SUBMIT_ANSWER_BUTTON = document.querySelector('#answer-button');
 const THEME_SWITCH = document.querySelector('#theme-switch');
 const TOTAL_QUESTIONS_ELEMENTS = document.querySelectorAll('.total-questions');
 const UNANSWERED_ERROR = document.querySelector('#unanswered-error');
+
+let quizData = null;
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,51 +56,28 @@ function initialize() {
         }
         return response.json();
     }).then(data => {
-        populateHomePage(data.quizzes);
+        quizData = data.quizzes
+        populateHomePage(quizData);
     }).catch(error => {
         console.error(error);
     });
-}
-
-function nextQuestion(question, questionNumber, score, possibleScore) {
-    toggleSubmitButton('answer-button');
-
-    if (questionNumber === possibleScore) {
-        togglePage('completed');
-        SCORE_ELEMENT.textContent = score;
-        if (score === possibleScore) celebrate(6);
-    } else {
-        if (questionNumber === possibleScore - 1) NEXT_QUESTION_BUTTON.textContent = 'Finish quiz';
-        populateQuestionPage(question);
-        QUESTION_NUMBER.textContent = questionNumber + 1;
-    }
 }
 
 
 function playQuiz(quizObject) {
     updateProgressBar(0, 1);
     togglePage('quiz');
+    toggleSubmitButton('answer-button');
 
     const QUESTIONS = quizObject.questions;
     let questionNumber = 0;
     let score = 0
     let possibleScore = QUESTIONS.length;
 
-    function nextQuestionHandler() {
-        nextQuestion(
-            QUESTIONS[questionNumber], questionNumber, score, possibleScore
-        );
-    }
-    function submitAnswerHandler() {
-        let newQuizState = submitAnswer(QUESTIONS[questionNumber].answer, questionNumber, score);
-        questionNumber = newQuizState.questionNumber;
-        score = newQuizState.score;
-        updateProgressBar(questionNumber, possibleScore);
-    }
-
     QUIZ_TITLES.forEach(element => {
         element.textContent = quizObject.title;
-        element.classList.add('subject', quizObject.title.toLowerCase());
+        element.classList
+        element.classList.add(quizObject.title.toLowerCase());
     });
     TOTAL_QUESTIONS_ELEMENTS.forEach(element => element.textContent = possibleScore);
     QUESTION_NUMBER.textContent = questionNumber + 1;
@@ -105,11 +85,33 @@ function playQuiz(quizObject) {
     populateQuestionPage(QUESTIONS[questionNumber]);
     SUBMIT_ANSWER_BUTTON.addEventListener('click', submitAnswerHandler);
     NEXT_QUESTION_BUTTON.addEventListener('click', nextQuestionHandler);
+    FINISH_BUTTON.addEventListener('click', finishQuizHandler);
     PLAY_AGAIN_BUTTON.addEventListener('click', () => {
         SUBMIT_ANSWER_BUTTON.removeEventListener('click', submitAnswerHandler);
         NEXT_QUESTION_BUTTON.removeEventListener('click', nextQuestionHandler);
-        togglePage('start');
+        FINISH_BUTTON.removeEventListener('click', finishQuizHandler);
+        populateHomePage(quizData);
     });
+
+
+    /* Event handlers functions */
+    function nextQuestionHandler() {
+        populateQuestionPage(QUESTIONS[questionNumber]);
+        QUESTION_NUMBER.textContent = questionNumber + 1;
+        toggleSubmitButton('answer-button');
+    }
+    function submitAnswerHandler() {
+        let newQuizState = submitAnswer(QUESTIONS[questionNumber].answer, questionNumber, score);
+        questionNumber = newQuizState.questionNumber;
+        score = newQuizState.score;
+        updateProgressBar(questionNumber, possibleScore);
+        questionNumber === possibleScore ? toggleSubmitButton('finish-button') : toggleSubmitButton('next-button');
+    }
+    function finishQuizHandler() {
+        togglePage('completed');
+        SCORE_ELEMENT.textContent = score;
+        if (score === possibleScore) celebrate(6);
+    }
 }
 
 
@@ -134,9 +136,12 @@ function populateAnswers(options) {
 function populateHomePage(quizList) {
     togglePage('start');
     SUBJECTS.replaceChildren();
-    QUIZ_TITLES[0].replaceChildren();
+    QUIZ_TITLES.forEach(quizTitle => quizTitle.replaceChildren());
+
 
     for (let quiz of quizList) {
+        QUIZ_TITLES.forEach(quizTitle => quizTitle.classList.remove(quiz.title.toLowerCase()));
+
         let subjectContainer = document.createElement('li');
         let subject = document.createElement('button');
 
@@ -153,12 +158,22 @@ function populateHomePage(quizList) {
 
 function populateQuestionPage(questionObject) {
     QUESTION_ELEMENT.textContent = questionObject.question;
-    populateAnswers(questionObject.options);
+    populateAnswers(shuffleArrayCopy(questionObject.options));
 }
 
 
 function randomConfetti() {
     shootConfetti(Math.random() * 100, Math.random() * 100);
+}
+
+
+function shuffleArrayCopy(arr) {
+    let arrCopy = arr.slice();
+    let newArr = [];
+    while (arrCopy.length > 0) {
+        newArr.push(arrCopy.splice(Math.floor(Math.random() * arrCopy.length), 1)[0]);
+    }
+    return newArr;
 }
 
 
@@ -231,12 +246,18 @@ function togglePage(pageId) {
 
 
 function toggleSubmitButton(buttonId) {
-    if (buttonId === 'next-button') {
+    if (buttonId === 'answer-button') {
+        SUBMIT_ANSWER_BUTTON.removeAttribute('hidden');
+        NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
+        FINISH_BUTTON.setAttribute('hidden', '');
+    } else if (buttonId === 'next-button') {
         SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
         NEXT_QUESTION_BUTTON.removeAttribute('hidden');
+        FINISH_BUTTON.setAttribute('hidden', '');
     } else {
+        SUBMIT_ANSWER_BUTTON.setAttribute('hidden', '');
         NEXT_QUESTION_BUTTON.setAttribute('hidden', '');
-        SUBMIT_ANSWER_BUTTON.removeAttribute('hidden');
+        FINISH_BUTTON.removeAttribute('hidden');
     }
 }
 
