@@ -22,6 +22,7 @@
     --bluish-white: hsl(223 100% 96%);
 
     --dark-navy: hsl(216 25% 25%);
+    --shadow-navy: hsl(216 25% 25% / 14%);
     --navy: hsl(215 27% 32%);
     --grey-navy: hsl(219 13% 44%);
     --light-bluish: hsl(216 47% 78%);
@@ -71,7 +72,8 @@
 
 
     /* Shadow */
-    --shadow: 0 16px 40px 0 var(--shadow-blue);
+    --shadow-settings: 0 16px 40px 0;
+    --shadow: var(--shadow-settings) var(--shadow-blue);
 
 
     /* Font sizes */
@@ -186,6 +188,9 @@
     /* Background */
     --background-pattern-mobile: url("../assets/images/pattern-background-mobile-dark.svg");
     --background-pattern-desktop: url("../assets/images/pattern-background-desktop-dark.svg");
+
+    /* Shadow */
+    --shadow: var(--shadow-settings) var(--shadow-navy);
 }
 
 @media (min-width: 600px) {
