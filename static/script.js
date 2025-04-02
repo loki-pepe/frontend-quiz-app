@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function celebrate(n=1) {
     let count = 0;
     let interval = setInterval(() => {
-        randomConfetti();
+        randomConfetti(10, 90, 10, 50);
         count++;
         if (count === n) {
             clearInterval(interval);
@@ -162,8 +162,8 @@ function populateQuestionPage(questionObject) {
 }
 
 
-function randomConfetti() {
-    shootConfetti(Math.random() * 100, Math.random() * 100);
+function randomConfetti(xMin, xMax, yMin, yMax) {
+    shootConfetti(Math.random() * (xMax - xMin) + xMin, Math.random() * (yMax - yMin) + yMin);
 }
 
 
