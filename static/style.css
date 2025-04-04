@@ -255,7 +255,7 @@
     background-color: var(--answer-selected-decoration-bg-color);
     color: var(--answer-marked-decoration-color);
 }
-.answer.correct::after, .answer.incorrect::after {
+.answer::after {
     display: block;
     content: "";
     height: var(--answer-feedback-icon-size);
