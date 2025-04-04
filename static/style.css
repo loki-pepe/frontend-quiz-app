@@ -139,6 +139,7 @@
     --interactive-container-flex-basis: 564px;
     --option-decoration-size: clamp(2.5rem, 1.5458rem + 4.0712vw, 3.5rem);
     --progress-bar-height: 1rem;
+    --question-container-height: 28.25rem;
     --theme-switch-core-size: clamp(0.75rem, 0.2729rem + 2.0356vw, 1.25rem);;
     --theme-switch-height: calc(var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
     --theme-switch-width: calc(2 * var(--theme-switch-core-size) + 2 * var(--theme-switch-padding));
@@ -564,6 +565,13 @@ p#unanswered-error::before {
 
     .interactive-container {
         flex: 0 0 var(--interactive-container-flex-basis);
+    }
+
+    #question-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: var(--question-container-height);
     }
 }
 
