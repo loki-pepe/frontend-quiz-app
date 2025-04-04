@@ -101,11 +101,10 @@ function playQuiz(quizObject) {
         toggleSubmitButton('answer-button');
     }
     function submitAnswerHandler() {
-        let newQuizState = submitAnswer(QUESTIONS[questionNumber].answer, questionNumber, score);
+        let newQuizState = submitAnswer(QUESTIONS[questionNumber].answer, questionNumber, score, possibleScore);
         questionNumber = newQuizState.questionNumber;
         score = newQuizState.score;
         updateProgressBar(questionNumber, possibleScore);
-        questionNumber === possibleScore ? toggleSubmitButton('finish-button') : toggleSubmitButton('next-button');
     }
     function finishQuizHandler() {
         togglePage('completed');
@@ -213,14 +212,14 @@ function shootConfetti(x=50, y=50) {
 }
 
 
-function submitAnswer(correctAnswer, questionNumber, score) {
+function submitAnswer(correctAnswer, questionNumber, score, possibleScore) {
     const SELECTED_ANSWER = document.querySelector('.selected');
     
     if (!SELECTED_ANSWER) {
         toggleUnansweredError(true);
     } else {
         questionNumber++;
-        toggleSubmitButton('next-button');
+        questionNumber === possibleScore ? toggleSubmitButton('finish-button') : toggleSubmitButton('next-button');
         ANSWERS_LIST.classList.add('answered');
 
         if (SELECTED_ANSWER.textContent === correctAnswer) {
