@@ -316,6 +316,10 @@ button.submit {
     padding: var(--submit-button-padding);
 }
 
+#error-container {
+    height: var(--error-icon-size);
+}
+
 h1::after {
     content: "!";
 }
