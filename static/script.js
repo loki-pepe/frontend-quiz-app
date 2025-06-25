@@ -123,6 +123,7 @@ function populateAnswers(options) {
         let answer = document.createElement('button');
         
         answer.textContent = option;
+        answer.type = 'button';
         answer.classList.add('answer', 'option');
         answer.addEventListener('click', () => selectAnswer(answer));
 
@@ -145,6 +146,7 @@ function populateHomePage(quizList) {
         let subject = document.createElement('button');
 
         subject.textContent = quiz.title;
+        subject.type = 'button';
         subject.classList.add('subject', 'option', quiz.title.toLowerCase());
 
         subject.addEventListener('click', () => playQuiz(quiz));
